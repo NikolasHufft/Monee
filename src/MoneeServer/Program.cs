@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ServerLibrary.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-        throw new InvalidOperationException("Sorry, your connection is not found!")));   
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
+        throw new InvalidOperationException("Sorry, your connection is not found!")));
 
 var app = builder.Build();
 

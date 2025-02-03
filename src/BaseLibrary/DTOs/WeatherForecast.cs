@@ -1,4 +1,4 @@
-namespace MoneeServer
+namespace BaseLibrary.DTOs
 {
     public class WeatherForecast
     {

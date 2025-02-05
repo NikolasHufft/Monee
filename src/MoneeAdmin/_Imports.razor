@@ -8,3 +8,13 @@
 @using Microsoft.JSInterop
 @using MoneeAdmin
 @using MoneeAdmin.Layout
+
+@using BaseLibrary.DTOs
+@using ClientLibrary.Helpers
+@using Microsoft.AspNetCore.Components.Authorization
+@using ClientLibrary.Services.Contracts
+@using ClientLibrary.Services.Implementations
+
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+@inject IUserAccountService accountService

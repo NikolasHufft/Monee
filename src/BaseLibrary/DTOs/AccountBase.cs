@@ -7,10 +7,10 @@ namespace BaseLibrary.DTOs
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         [Required]
-        public string Email { get; set; } = default!;
+        public string Email { get; set; }
 
         [DataType(DataType.Password)]
         [Required]
-        public string Password { get; set; } = default!;    
+        public string Password { get; set; }  
     }
 }

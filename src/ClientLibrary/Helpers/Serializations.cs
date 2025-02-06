@@ -28,7 +28,7 @@ namespace ClientLibrary.Helpers
         {
             var options1 = new JsonSerializerOptions
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),                
                 WriteIndented = true
             };
             var a = JsonSerializer.Deserialize<T>(jsonString, options1);

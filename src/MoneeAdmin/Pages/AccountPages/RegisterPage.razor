@@ -1,0 +1,53 @@
+﻿@page "/identity/account/register"
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <EditForm Enhance Model="User" OnValidSubmit="HandleRegistration">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="card">
+                    <div class="card-header">Fill this form to Register</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <InputText class="form-control" id="FullName" @bind-Value="User.FullName" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">E-mail</label>
+                            <InputText class="form-control" id="Email" @bind-Value="User.Email" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Password</label>
+                            <input class="form-control" id="Password" type="password" @bind="User.Password" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input class="form-control" id="ConfirmPassword" type="password" @bind="User.ConfirmPassword" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-outline-primary float-end">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    // Create and bind the User object to the form  
+    Register User = new Register();
+
+    async Task HandleRegistration()
+    {
+        var result = await accountService.CreateAsync(User);
+        if (result.Flag)
+        {
+            // Clear the form
+            User = new();
+            // Redirect to the home page    
+            NavigationManager.NavigateTo("/", forceLoad: true);
+        }
+    }
+}

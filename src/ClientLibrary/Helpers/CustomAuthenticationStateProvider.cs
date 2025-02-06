@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Web;
-using System.Xml;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace ClientLibrary.Helpers
 {

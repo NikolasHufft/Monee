@@ -19,4 +19,9 @@
     <ProjectReference Include="..\ClientLibrary\ClientLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="images\background\" />
+  </ItemGroup>
+
 </Project>

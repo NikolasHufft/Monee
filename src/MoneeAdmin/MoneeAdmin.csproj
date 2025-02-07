@@ -7,11 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\background\bg.png" />
+    <Content Remove="wwwroot\images\background\logo.png" />
+    <Content Remove="wwwroot\images\profiles\profile1.jpg" />
+    <Content Remove="wwwroot\images\profiles\profile1.png" />
+    <Content Remove="wwwroot\images\profiles\profile2.jpg" />
+    <Content Remove="wwwroot\images\profiles\profile3.jpg" />
+    <Content Remove="wwwroot\images\profiles\profile4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
      <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
      <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="9.0.1" />
    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.1" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="28.2.4" />
+    <PackageReference Include="Syncfusion.Blazor.Popups" Version="28.2.4" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="28.2.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,8 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="css\" />
-    <Folder Include="images\background\" />
+    <None Include="wwwroot\images\background\bg.png" />
+    <None Include="wwwroot\images\companylogos\logo.png" />
+    <None Include="wwwroot\images\profiles\profile1.jpg" />
+    <None Include="wwwroot\images\profiles\profile1.png" />
+    <None Include="wwwroot\images\profiles\profile2.jpg" />
+    <None Include="wwwroot\images\profiles\profile3.jpg" />
+    <None Include="wwwroot\images\profiles\profile4.jpg" />
   </ItemGroup>
 
 </Project>

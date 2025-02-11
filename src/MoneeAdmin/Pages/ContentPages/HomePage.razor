@@ -1,10 +1,12 @@
 ﻿@using MoneeAdmin.Pages.AdminPages
+@using MoneeAdmin.Pages.DepartmentPages
 @* router *@
 @page "/home/dashboard"
 
 @layout MainLayout
 
 <TableBanner />
+<GeneralDepartmentPage />
 
 @code {
     [CascadingParameter] public Task<AuthenticationState> authenticationState { get; set; }

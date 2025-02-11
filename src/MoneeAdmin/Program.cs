@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MoneeAdmin;
+using MoneeAdmin.ApplicationState;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Popups;
 
@@ -25,6 +26,8 @@ builder.Services.AddScoped<GetHttpClient>();
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+
+builder.Services.AddScoped<DepartmentState>();
 
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<SfDialogService>();

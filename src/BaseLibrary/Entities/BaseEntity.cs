@@ -7,10 +7,8 @@ namespace BaseLibrary.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        [MinLength(5)]
-        [MaxLength(100)]
-        public string Name { get; set; }
+        [Required, MinLength(5), MaxLength(100)]
+        public string Name { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
     }
 }

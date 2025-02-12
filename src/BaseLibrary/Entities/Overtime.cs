@@ -16,7 +16,7 @@ namespace BaseLibrary.Entities
         public int NumberOfDays => (EndtDate - StartDate).Days;
         public double Average { get; set; }
         public double Amount { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         //  Many-to-one relationship
         public OvertimeType? OvertimeType { get; set; }

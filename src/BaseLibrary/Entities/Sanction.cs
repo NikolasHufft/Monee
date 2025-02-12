@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
 {
@@ -19,5 +20,7 @@ namespace BaseLibrary.Entities
         // Many-to-one relationship
         public SanctionType? SanctionType { get; set; }
         public int SanctionTypeId { get; set; }
+        [JsonIgnore]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

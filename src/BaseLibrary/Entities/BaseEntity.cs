@@ -9,6 +9,7 @@ namespace BaseLibrary.Entities
 
         [Required, MinLength(5), MaxLength(100)]
         public string Name { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
+        [JsonIgnore]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

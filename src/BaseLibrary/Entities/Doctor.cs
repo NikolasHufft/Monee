@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
 {
@@ -17,7 +18,7 @@ namespace BaseLibrary.Entities
         public string MedicalRecommendation { get; set; } = string.Empty;
         public string MedicalPrescription { get; set; } = string.Empty;
         public string MedicalCertificate { get; set; } = string.Empty;
-        [Required, DataType(DataType.DateTime)]
+        [Required, DataType(DataType.DateTime), JsonIgnore]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

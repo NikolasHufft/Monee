@@ -1,3 +1,4 @@
+using BaseLibrary.Entities;
 using Blazored.LocalStorage;
 using ClientLibrary.Helpers;
 using ClientLibrary.Services.Contracts;
@@ -27,7 +28,18 @@ builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 
-builder.Services.AddScoped<DepartmentState>();
+
+builder.Services.AddScoped<IGenericService<Department>, GenericService<Department>>();
+builder.Services.AddScoped<IGenericService<GeneralDepartment>, GenericService<GeneralDepartment>>();
+builder.Services.AddScoped<IGenericService<Branch>, GenericService<Branch>>();
+
+builder.Services.AddScoped<IGenericService<Town>, GenericService<Town>>();
+builder.Services.AddScoped<IGenericService<Country>, GenericService<Country>>();
+builder.Services.AddScoped<IGenericService<City>, GenericService<City>>();
+
+builder.Services.AddScoped<IGenericService<Employee>, GenericService<Employee>>();
+
+builder.Services.AddScoped<AllStates>();
 
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<SfDialogService>();

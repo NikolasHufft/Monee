@@ -1,10 +1,10 @@
-﻿@using MoneeAdmin.Pages.OtherPages
-@using Syncfusion.Blazor.Popups
+﻿@* @using MoneeAdmin.Pages.OtherPages
+@using Syncfusion.Blazor.Popups *@
 
 @page "/identity/account/register"
 @layout AuthenticationLayout
 
-@inject SfDialogService DialogService
+@* @inject SfDialogService DialogService *@
 
 <div class="container">
     <div class="row">
@@ -100,7 +100,7 @@
 
     private async Task ShowDialog(string content, string title)
     {
-        await DialogService.AlertAsync(content, title);
+        await dialogService.AlertAsync(content, title);
     }
 
     private async Task CheckUserAuthentication()

@@ -5,9 +5,9 @@ namespace BaseLibrary.Entities
     public class Vacation
     {
         public int Id { get; set; }
-        public string CiviId { get; set; }
-        public string FileNumber { get; set; }
-        public string Other { get; set; }
+        public string? CiviId { get; set; }
+        public string? FileNumber { get; set; }
+        public string? Other { get; set; }
         [Required, DataType(DataType.DateTime)]
         public DateTime StartDate { get; set; }
         [Required, DataType(DataType.DateTime)]
@@ -19,6 +19,6 @@ namespace BaseLibrary.Entities
 
         //  Many-to-one relationship
         public int VacationTypeId { get; set; }
-        public VacationType VacationType { get; set; }
+        public virtual VacationType? VacationType { get; set; }
     }
 }

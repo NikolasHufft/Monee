@@ -20,7 +20,7 @@ namespace ServerLibrary.Repositories.Implementations
         }
         public async Task<List<Branch>> GetAll()
         {
-            return await appDbContext.Branches.ToListAsync();
+            return await appDbContext.Branches.AsNoTracking().Include(p => p.Department).ToListAsync();
         }
         public async Task<Branch> GetById(int id)
         {
@@ -45,9 +45,10 @@ namespace ServerLibrary.Repositories.Implementations
 
         public async Task<GeneralResponse> Update(Branch entity)
         {
-            Branch branch = await appDbContext.Branches.FindAsync(entity.Id);
+            var branch = await appDbContext.Branches.FindAsync(entity.Id);
             if (branch == null) return NotFound();
             branch.Name = entity.Name;
+            branch.DepartmentId = entity.DepartmentId;
             await Commit();
             return Success();
         }

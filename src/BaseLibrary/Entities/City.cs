@@ -9,11 +9,11 @@ namespace BaseLibrary.Entities
         //public List<User>? Users { get; set; }
 
         // Relationships : Many to One
-        public List<Country>? Country { get; set; }
+        public virtual ICollection<Country>? Country { get; set; }
         public int CountryId { get; set; }
 
         // Relationships : One to Many
         [JsonIgnore]
-        public List<Town>? Towns { get; set; } // = new List<Town>();
+        public virtual ICollection<Town>? Towns { get; set; } // = new List<Town>();
     }
 }

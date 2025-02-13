@@ -18,7 +18,7 @@ namespace BaseLibrary.Entities
         public DateTime PunishmentDate { get; set; }
 
         // Many-to-one relationship
-        public SanctionType? SanctionType { get; set; }
+        public virtual SanctionType? SanctionType { get; set; }
         public int SanctionTypeId { get; set; }
         [JsonIgnore]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

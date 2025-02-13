@@ -6,6 +6,6 @@ namespace BaseLibrary.Entities
     {
         // One to Many
         [JsonIgnore]
-        public List<Sanction>? Sanctions { get; set; }
+        public virtual ICollection<Sanction>? Sanctions { get; set; }
     }
 }

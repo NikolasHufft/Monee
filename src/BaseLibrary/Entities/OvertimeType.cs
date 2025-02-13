@@ -6,6 +6,6 @@ namespace BaseLibrary.Entities
     {
         // One to Many
         [JsonIgnore]
-        public List<Overtime>? OverTimes { get; set; }
+        public virtual ICollection<Overtime>? OverTimes { get; set; }
     }
 }

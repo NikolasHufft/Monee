@@ -6,6 +6,6 @@ namespace BaseLibrary.Entities
     {
         // One to Many
         [JsonIgnore]
-        public List<City>? Cities { get; set; } // = new List<City>();
+        public virtual ICollection<City>? Cities { get; set; } // = new List<City>();
     }
 }

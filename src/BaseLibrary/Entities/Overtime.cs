@@ -19,7 +19,7 @@ namespace BaseLibrary.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         //  Many-to-one relationship
-        public OvertimeType? OvertimeType { get; set; }
+        public virtual OvertimeType? OvertimeType { get; set; }
         public int OvertimeTypeId { get; set; }
     }
 }

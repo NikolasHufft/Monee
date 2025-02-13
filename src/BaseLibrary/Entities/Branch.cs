@@ -10,6 +10,6 @@ namespace BaseLibrary.Entities
 
         // Relationships : one-to-many
         [JsonIgnore]
-        public List<Employee>? Employees { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
     }
 }

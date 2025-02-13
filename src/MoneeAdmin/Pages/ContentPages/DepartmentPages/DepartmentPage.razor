@@ -1,16 +1,13 @@
-﻿@* @using MoneeAdmin.ApplicationState
-@using BaseLibrary.Entities *@
-@implements IDisposable
-@* @inject DepartmentState departmentState *@
+﻿@implements IDisposable
 
-@if (allStates.ShowGeneralDepartment)
+@if (allStates.ShowDepartment)
 {
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="float-start">General Department</h4>
+                        <h4 class="float-start">Departments</h4>
                         <button class="btn btn-outline-success float-end" @onclick="OpenDialog">
                             <i class="bi bi-plus-circle-dotted"></i> Add Department
                         </button>
@@ -23,18 +20,21 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Id</th>
                                         <th scope="col">General Department</th>
+                                        <th scope="col">Department</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (GeneralDepartments is not null){
+                                    @if (Departments is not null)
+                                    {
                                         int count = 1;
 
-                                        foreach (GeneralDepartment item in GeneralDepartments)
+                                        foreach (Department item in Departments)
                                         {
                                             <tr>
                                                 <th scope="row">@count</th>
                                                 <td>@item.Id</td>
+                                                <td>@item.GeneralDepartment!.Name</td>
                                                 <td>@item.Name</td>
                                                 <td>
                                                     <i class="bi bi-pencil text-bg-danger text-info" id="cursorStyle" @onclick="()=>EditClicked(item)"></i>
@@ -48,7 +48,7 @@
                                     {
                                         <tr>
                                             <td colspan="4">
-                                                <div class="alert alert-fin text-center">No General Department added yet!</div>
+                                                <div class="alert alert-fin text-center">No Department added yet!</div>
                                             </td>
                                         </tr>
                                     }
@@ -68,22 +68,34 @@
     }
 </style>
 
-<GeneralDepartmentDialog @ref="generalDepartmentDialog" 
-OnSave="OnSave" 
-GeneralDepartment="GeneralDepartment" />
 
-@code 
+@* @ref gives me access to the ChangeTitle inside of the DepartmentDialog 
+    The 3 parameters below are expect in the DepartmentDialog [Parameter]
+*@
+<DepartmentDialog @ref="departmentDialog" 
+OnSave="OnSave"
+Department="Department"
+GeneralDepartments="GeneralDepartments"/>
+
+@code
 {
 
-    GeneralDepartmentDialog? generalDepartmentDialog;
-    GeneralDepartment GeneralDepartment = new();
+    DepartmentDialog? departmentDialog;
+    Department Department = new();
     public string Title = "Add";
     public List<GeneralDepartment> GeneralDepartments { set; get; } = new();
+    public List<Department> Departments { set; get; } = new();
 
     protected override async Task OnInitializedAsync()
     {
+        await GetDepartments();
         await GetGeneralDepartments();
         allStates.Action += StateHasChanged;
+    }
+
+    private async Task GetDepartments()
+    {
+        Departments = await departmentService.GetAll(Constants.DepartmentBaseUrl);
     }
 
     private async Task GetGeneralDepartments()
@@ -91,48 +103,50 @@ GeneralDepartment="GeneralDepartment" />
         GeneralDepartments = await generalDepartmentService.GetAll(Constants.GeneralDepartmentBaseUrl);
     }
 
-    private async void OnSave(GeneralDepartment generalDepartment)
+    private async void OnSave(Department department)
     {
         bool success = false;
-        if (generalDepartment.Id == 0)
+        if (department.Id == 0)
         {
-            var result = await generalDepartmentService.Insert(generalDepartment, Constants.GeneralDepartmentBaseUrl);
+            var result = await departmentService.Insert(department, Constants.DepartmentBaseUrl);
             success = await DisplayMessage(result.Flag, result.Message);
         }
         else
         {
-            var response = await generalDepartmentService.Update(generalDepartment, Constants.GeneralDepartmentBaseUrl);            
+            var response = await departmentService.Update(department, Constants.DepartmentBaseUrl);
             success = await DisplayMessage(response.Flag, response.Message);
         }
 
         if (success)
         {
-            generalDepartment = new();
-            await GetGeneralDepartments();
-            generalDepartmentDialog?.ChangeTitle("Add");
+            department = new();
+            await GetDepartments();
+            departmentDialog?.ChangeTitle("Add");
 
-        } 
+        }
     }
 
-    private void EditClicked(GeneralDepartment generalDepartment)
+    private void EditClicked(Department department)
     {
-        generalDepartmentDialog?.ChangeTitle("Update");
-        GeneralDepartment = generalDepartment;        
+        departmentDialog?.ChangeTitle("Update");
+        Department = department;
         OpenDialog();
     }
 
 
-    private async Task DeleteClicked(GeneralDepartment generalDepartment)
+    private async Task DeleteClicked(Department department)
     {
-        bool confirm = await dialogService.ConfirmAsync($"Are you sure you want to delete the {generalDepartment.Name}?", "Confirm Delete");
+        bool confirm = await dialogService.ConfirmAsync($"Are you sure you want to delete the {department.Name}?", "Confirm Delete");
 
         if (!confirm) return;
 
-        var response = await generalDepartmentService.DeleteById(generalDepartment.Id, Constants.GeneralDepartmentBaseUrl);
+        var response = await departmentService.DeleteById(department.Id, Constants.DepartmentBaseUrl);
 
-        if (await DisplayMessage(response.Flag, response.Message))
+        var result = await DisplayMessage(response.Flag, response.Message);
+
+        if (result)
         {
-            await GetGeneralDepartments();
+            await GetDepartments();
         }
     }
 
@@ -151,12 +165,12 @@ GeneralDepartment="GeneralDepartment" />
     }
 
     void OpenDialog()
-    { 
-        generalDepartmentDialog?.OpenDialog();
+    {
+        departmentDialog?.OpenDialog();
     }
 
     public void Dispose()
     {
         allStates.Action -= StateHasChanged;
-    }    
+    }
 }

@@ -8,10 +8,10 @@ namespace BaseLibrary.Entities
         //[JsonIgnore]
         //public List<User>? Users { get; set; }
         [JsonIgnore]
-        public List<Employee>? Employees { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
 
         // Relationships : Many to One
-        public City? City { get; set; }
+        public virtual City? City { get; set; }
         public int CityId { get; set; }
     }
 }

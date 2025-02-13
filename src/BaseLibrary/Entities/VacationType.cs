@@ -6,6 +6,6 @@ namespace BaseLibrary.Entities
     {
         // Many-to-one
         [JsonIgnore]
-        public List<Vacation>? Vacations { get; set; }
+        public virtual ICollection<Vacation>? Vacations { get; set; }
     }
 }

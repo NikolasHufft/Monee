@@ -6,10 +6,10 @@ namespace BaseLibrary.Entities
     {
         // Many to one relationship with GeneralDepartment
         public int GeneralDepartmentId { get; set; }
-        public GeneralDepartment? GeneralDepartment { get; set; }
+        public virtual GeneralDepartment? GeneralDepartment { get; set; }
 
         // One to many relationship with Branch
         [JsonIgnore]
-        public List<Branch>? Branches { get; set; }
+        public virtual ICollection<Branch>? Branches { get; set; }
     }
 }

@@ -35,11 +35,11 @@
 <Syncfusion.Blazor.Popups.SfDialogProvider />
 
 @code {
-    async Task LogoutClicked()
-    {
-        var logoutModel = new UserSession();
-        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
-        await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
-        NavigationManager.NavigateTo("/", forceLoad: true);
-    }
+    // async Task LogoutClicked()
+    // {
+    //     var logoutModel = new UserSession();
+    //     var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+    //     await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
+    //     NavigationManager.NavigateTo("/", forceLoad: true);
+    // }
 }

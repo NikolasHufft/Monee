@@ -63,7 +63,7 @@
     public bool ShowLoadingButton { get; set; } = false;
     Login User = new Login();
 
-    [CascadingParameter] public Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter] public Task<AuthenticationState>? authenticationState { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -72,7 +72,7 @@
 
     private async Task CheckUserAuthentication()
     {
-        var user = (await authenticationState).User;
+        var user = (await authenticationState!).User;
         if (!user.Identity!.IsAuthenticated)
         {
             NavigationManager.NavigateTo("home/dashboard");

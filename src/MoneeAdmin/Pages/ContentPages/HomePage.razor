@@ -4,15 +4,21 @@
 @page "/home/dashboard"
 @* @using MoneeAdmin.Pages.ContentPages.DepartmentPages
 @using MoneeAdmin.Pages.OtherPages *@
-
-@layout MainLayout
+@* 
+@layout MainLayout *@
 
 <TableBanner />
 <GeneralDepartmentPage />
 <DepartmentPage />
+<BranchPage />
+<UserPage />
+<EmployeePage />
+
+@* I need to add the CityPage, TownPage, CoutryPage *@
+
 
 @code {
-    [CascadingParameter] public Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter] public Task<AuthenticationState>? authenticationState { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -21,7 +27,7 @@
 
     private async Task CheckUserAuthentication()
     {
-        var user = (await authenticationState).User;
+        var user = (await authenticationState!).User;
         if (!user.Identity!.IsAuthenticated)
         {
             NavigationManager.NavigateTo("identity/account/login");

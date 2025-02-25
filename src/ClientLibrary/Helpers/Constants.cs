@@ -8,6 +8,6 @@
         public const string CountryBaseUrl = "api/country";
         public const string CityBaseUrl = "api/city";
         public const string TownBaseUrl = "api/town";
-        public const string EmplyeeBaseUrl = "api/employee";
+        public const string EmployeeBaseUrl = "api/employee";
     }
 }

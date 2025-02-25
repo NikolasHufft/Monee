@@ -25,7 +25,7 @@ namespace ServerLibrary.Repositories.Implementations
         }
         public async Task<List<City>> GetAll()
         {
-            return await appDbContext.Cities.ToListAsync();
+            return await appDbContext.Cities.AsNoTracking().Include(p => p.Country).ToListAsync();
         }
         public async Task<City> GetById(int id)
         {
@@ -50,9 +50,10 @@ namespace ServerLibrary.Repositories.Implementations
 
         public async Task<GeneralResponse> Update(City entity)
         {
-            City branch = await appDbContext.Cities.FindAsync(entity.Id);
-            if (branch == null) return NotFound();
-            branch.Name = entity.Name;
+            City city = await appDbContext.Cities.FindAsync(entity.Id);
+            if (city == null) return NotFound();
+            city.Name = entity.Name;
+            city.CountryId = entity.CountryId;
             await Commit();
             return Success();
         }

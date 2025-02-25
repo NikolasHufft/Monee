@@ -34,9 +34,14 @@
 
     async Task LogoutClicked()
     {
+        // var logoutModel = new UserSession();
+        // var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+        // await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
+        // NavigationManager.NavigateTo("/identity/account/login", replace: true, forceLoad: true);
+
         var logoutModel = new UserSession();
         var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
-        NavigationManager.NavigateTo("/identity/account/login", replace: true, forceLoad: true);
+        NavigationManager.NavigateTo("/", forceLoad: true);
     }
 }

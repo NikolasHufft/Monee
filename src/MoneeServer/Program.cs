@@ -6,7 +6,6 @@ using ServerLibrary.Data;
 using ServerLibrary.Helpers;
 using ServerLibrary.Repositories.Contracts;
 using ServerLibrary.Repositories.Implementations;
-using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +30,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 { 
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -54,6 +53,7 @@ builder.Services.AddScoped<IGenericRepository<Town>, TownRepository>();
 builder.Services.AddScoped<IGenericRepository<Country>, CountryRepository>();
 builder.Services.AddScoped<IGenericRepository<City>, CityRepository>();
 
+builder.Services.AddScoped<IGenericRepository<Employee>, EmployeeRepository>();
 
 builder.Services.AddCors(options =>
 {

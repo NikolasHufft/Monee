@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.1" PrivateAssets="all" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="28.2.4" />
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="28.2.4" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="28.2.4" />
     <PackageReference Include="Syncfusion.Blazor.Popups" Version="28.2.4" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="28.2.4" />
   </ItemGroup>
@@ -41,6 +42,10 @@
     <None Include="wwwroot\images\profiles\profile2.jpg" />
     <None Include="wwwroot\images\profiles\profile3.jpg" />
     <None Include="wwwroot\images\profiles\profile4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\ContentPages\LocationPages\" />
   </ItemGroup>
 
 </Project>

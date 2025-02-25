@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
 {
@@ -20,5 +21,11 @@ namespace BaseLibrary.Entities
         //  Many-to-one relationship
         public int VacationTypeId { get; set; }
         public virtual VacationType? VacationType { get; set; }
+
+        public int EmployeeId { get; set; }
+        [JsonIgnore]
+        public Employee? Employee { get; set; }
+
+        // Relationships : one-to-many
     }
 }

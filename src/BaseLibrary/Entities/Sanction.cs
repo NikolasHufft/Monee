@@ -22,5 +22,10 @@ namespace BaseLibrary.Entities
         public int SanctionTypeId { get; set; }
         [JsonIgnore]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public int EmployeeId { get; set; }
+        // Relationships : one-to-many
+        [JsonIgnore]
+        public Employee? Employee { get; set; }
     }
 }

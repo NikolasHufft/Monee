@@ -6,8 +6,8 @@ namespace MoneeServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericDepartmentController(IGenericRepository<GeneralDepartment> genericRepository) : 
-        GenericController<GeneralDepartment>(genericRepository)
+    public class GeneralDepartmentController(IGenericRepository<GeneralDepartment> generalRepository) : 
+        GenericController<GeneralDepartment>(generalRepository)
     {
     }
 }

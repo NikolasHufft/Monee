@@ -72,7 +72,7 @@
     // Create and bind the User object to the form
     Register User = new Register();
 
-    [CascadingParameter] public Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter] public Task<AuthenticationState>? authenticationState { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -105,7 +105,7 @@
 
     private async Task CheckUserAuthentication()
     {
-        var user = (await authenticationState).User;
+        var user = (await authenticationState!).User;
         if (!user.Identity!.IsAuthenticated)
         {
             NavigationManager.NavigateTo("home/dashboard");

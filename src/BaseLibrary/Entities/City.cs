@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
 {
@@ -9,7 +10,8 @@ namespace BaseLibrary.Entities
         //public List<User>? Users { get; set; }
 
         // Relationships : Many to One
-        public virtual ICollection<Country>? Country { get; set; }
+        public virtual Country? Country { get; set; }
+        [Required]
         public int CountryId { get; set; }
 
         // Relationships : One to Many

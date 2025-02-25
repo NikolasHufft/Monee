@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
 {
@@ -10,8 +11,8 @@ namespace BaseLibrary.Entities
         public string FileNumber { get; set; }
         [Required]
         public string JobTitle { get; set; }
-        [Required]
-        public string FullName { get; set; }
+        //[Required]
+        //public string LastName { get; set; }
         [Required]
         public string Address { get; set; }
         [Required, DataType(DataType.PhoneNumber)]
@@ -32,5 +33,17 @@ namespace BaseLibrary.Entities
 
         public virtual Town? Town { get; set; }
         public int TownId { get; set; }
+
+        //public int DoctorId { get; set; }
+        //[JsonIgnore]
+        //public ICollection<Doctor>? Doctors { get; set; } = [];
+        [JsonIgnore]
+        public virtual ICollection<EmployeeDoctor>? EmployeeDoctors { get; set; } = [];
+        [JsonIgnore]
+        public virtual ICollection<Overtime>? Overtimes { get; set; } = [];
+        [JsonIgnore]
+        public virtual ICollection<Sanction>? Sanctions { get; set; } = [];
+        [JsonIgnore]
+        public virtual ICollection<Vacation>? Vacations { get; set; } = [];
     }
 }

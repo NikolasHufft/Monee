@@ -34,8 +34,13 @@ namespace ServerLibrary.Data
         public DbSet<Vacation> Vacations { get; set; }
         public DbSet<VacationType> VacationTypes { get; set; }
 
+        public DbSet<EmployeeDoctor> EmployeeDoctors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<EmployeeDoctor>().HasKey(p => new { p.EmployeeId, p.DoctorId });
+
+            modelBuilder.Entity<EmployeeDoctor>().Property(d => d.CreatedAt).HasDefaultValueSql("getdate()");
             modelBuilder.Entity<Bank>().Property(b => b.CreatedAt).HasDefaultValueSql("getdate()");
             modelBuilder.Entity<Department>().Property(b => b.CreatedAt).HasDefaultValueSql("getdate()");
             modelBuilder.Entity<Branch>().Property(b => b.CreatedAt).HasDefaultValueSql("getdate()");

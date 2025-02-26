@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace BaseLibrary.Entities
@@ -23,11 +24,18 @@ namespace BaseLibrary.Entities
         public string PhotoUrl { get; set; }
         public string Notes { get; set; }
 
+
+
         // Relationships : Many to One
         //public City? City { get; set; }
         //public int CityId { get; set; }
 
         // Relationships : Many to One
+        public int GenderId { get; set; }
+        [Required]
+        [DefaultValue(1)]
+        public Gender? Gender { get; set; }
+
         public virtual Branch? Branch { get; set; }
         public int BranchId { get; set; }
 
@@ -35,10 +43,10 @@ namespace BaseLibrary.Entities
         public int TownId { get; set; }
 
         //public int DoctorId { get; set; }
-        //[JsonIgnore]
-        //public ICollection<Doctor>? Doctors { get; set; } = [];
         [JsonIgnore]
-        public virtual ICollection<EmployeeDoctor>? EmployeeDoctors { get; set; } = [];
+        public ICollection<Doctor>? Doctors { get; set; } = [];
+        //[JsonIgnore]
+        //public virtual ICollection<EmployeeDoctor>? EmployeeDoctors { get; set; } = [];
         [JsonIgnore]
         public virtual ICollection<Overtime>? Overtimes { get; set; } = [];
         [JsonIgnore]

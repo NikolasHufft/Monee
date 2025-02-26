@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServerLibrary.Data;
 
@@ -11,9 +12,11 @@ using ServerLibrary.Data;
 namespace ServerLibrary.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250225145646_Drop Table EmployeeDoctors")]
+    partial class DropTableEmployeeDoctors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +179,7 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileNumber")
@@ -202,6 +205,8 @@ namespace ServerLibrary.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Doctors");
                 });
@@ -238,9 +243,6 @@ namespace ServerLibrary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -269,32 +271,29 @@ namespace ServerLibrary.Data.Migrations
 
                     b.HasIndex("BranchId");
 
-                    b.HasIndex("GenderId");
-
                     b.HasIndex("TownId");
 
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("BaseLibrary.Entities.Gender", b =>
+            modelBuilder.Entity("BaseLibrary.Entities.EmployeeDoctor", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.HasKey("EmployeeId", "DoctorId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("DoctorId");
 
-                    b.ToTable("Gender");
+                    b.ToTable("EmployeeDoctors");
                 });
 
             modelBuilder.Entity("BaseLibrary.Entities.GeneralDepartment", b =>
@@ -331,6 +330,13 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<double>("Average")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CiviId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -342,7 +348,12 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<DateTime>("EndtDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FileNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Other")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OvertimeTypeId")
@@ -428,6 +439,10 @@ namespace ServerLibrary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CiviId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -439,6 +454,10 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FileNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Other")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -446,6 +465,9 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<string>("Punishment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PunishmentDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SanctionTypeId")
                         .HasColumnType("int");
@@ -594,6 +616,12 @@ namespace ServerLibrary.Data.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<double>("Average")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CiviId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -601,6 +629,9 @@ namespace ServerLibrary.Data.Migrations
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("FileNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Other")
                         .HasColumnType("nvarchar(max)");
@@ -641,21 +672,6 @@ namespace ServerLibrary.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VacationTypes");
-                });
-
-            modelBuilder.Entity("DoctorEmployee", b =>
-                {
-                    b.Property<int>("DoctorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorsId", "EmployeesId");
-
-                    b.HasIndex("EmployeesId");
-
-                    b.ToTable("DoctorEmployee");
                 });
 
             modelBuilder.Entity("BaseLibrary.Entities.Bank", b =>
@@ -702,17 +718,18 @@ namespace ServerLibrary.Data.Migrations
                     b.Navigation("GeneralDepartment");
                 });
 
+            modelBuilder.Entity("BaseLibrary.Entities.Doctor", b =>
+                {
+                    b.HasOne("BaseLibrary.Entities.Employee", null)
+                        .WithMany("Doctors")
+                        .HasForeignKey("EmployeeId");
+                });
+
             modelBuilder.Entity("BaseLibrary.Entities.Employee", b =>
                 {
                     b.HasOne("BaseLibrary.Entities.Branch", "Branch")
                         .WithMany("Employees")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BaseLibrary.Entities.Gender", "Gender")
-                        .WithMany("Employees")
-                        .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -724,9 +741,26 @@ namespace ServerLibrary.Data.Migrations
 
                     b.Navigation("Branch");
 
-                    b.Navigation("Gender");
-
                     b.Navigation("Town");
+                });
+
+            modelBuilder.Entity("BaseLibrary.Entities.EmployeeDoctor", b =>
+                {
+                    b.HasOne("BaseLibrary.Entities.Doctor", "Doctor")
+                        .WithMany("EmployeeDoctors")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BaseLibrary.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("BaseLibrary.Entities.Overtime", b =>
@@ -797,21 +831,6 @@ namespace ServerLibrary.Data.Migrations
                     b.Navigation("VacationType");
                 });
 
-            modelBuilder.Entity("DoctorEmployee", b =>
-                {
-                    b.HasOne("BaseLibrary.Entities.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BaseLibrary.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BaseLibrary.Entities.Branch", b =>
                 {
                     b.Navigation("Employees");
@@ -832,18 +851,20 @@ namespace ServerLibrary.Data.Migrations
                     b.Navigation("Branches");
                 });
 
+            modelBuilder.Entity("BaseLibrary.Entities.Doctor", b =>
+                {
+                    b.Navigation("EmployeeDoctors");
+                });
+
             modelBuilder.Entity("BaseLibrary.Entities.Employee", b =>
                 {
+                    b.Navigation("Doctors");
+
                     b.Navigation("Overtimes");
 
                     b.Navigation("Sanctions");
 
                     b.Navigation("Vacations");
-                });
-
-            modelBuilder.Entity("BaseLibrary.Entities.Gender", b =>
-                {
-                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("BaseLibrary.Entities.GeneralDepartment", b =>

@@ -21,6 +21,10 @@
 @using MoneeAdmin.Pages.ContentPages.UserPages
 @using MoneeAdmin.Pages.ContentPages.DepartmentPages
 @using MoneeAdmin.Pages.OtherPages
+@using MoneeAdmin.Pages.OtherPages.DoctorPages
+@using MoneeAdmin.Pages.OtherPages.OvertimePages
+@using MoneeAdmin.Pages.OtherPages.VacationPages
+@using MoneeAdmin.Pages.OtherPages.SanctionPages
 
 @using Syncfusion.Blazor.Popups
 @using Syncfusion.Blazor.Buttons
@@ -43,3 +47,14 @@
 @inject IGenericService<Branch> branchService
 
 @inject IGenericService<Employee> employeeService
+
+@inject IGenericService<Doctor> doctorService
+
+@inject IGenericService<Vacation> vacationService
+@inject IGenericService<VacationType> vacationTypeService
+
+@inject IGenericService<Overtime> overtimeService
+@inject IGenericService<OvertimeType> overtimeTypeService
+
+@inject IGenericService<Sanction> sanctionService
+@inject IGenericService<SanctionType> sanctionTypeService

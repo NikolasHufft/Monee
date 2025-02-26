@@ -77,6 +77,14 @@
             Action?.Invoke();
         }
 
+        public bool ShowHealth { get; set; } = true;
+        public void HealthClicked()
+        {
+            ResetAll();
+            ShowHealth = true;
+            Action?.Invoke();
+        }
+
         private void ResetAll()
         {
             ShowGeneralDepartment = false;

@@ -83,6 +83,12 @@ HandleAddOvertimeClicked="AddOvertimeClicked"
 HandleAddSanctionClicked="AddSanctionClicked"
 HandleAddVacationClicked="AddVacationClicked" />
 
+<DoctorDialog @ref="doctorDialog" Doctor="Doctor" HandleSaveOperationEvent="SaveHealthEvent" />
+
+<OvertimeDialog @ref="overtimeDialog" Overtime="Overtime" OvertimeTypes="OvertimeTypes" HandleSaveOperationEvent="SaveOvertimeEvent" />
+<VacationDialog @ref="vacationDialog" Vacation="Vacation" VacationTypes="VacationTypes" HandleSaveOperationEvent="SaveVacationEvent" />
+<SanctionDialog @ref="sanctionDialog" Sanction="Sanction" SanctionTypes="SanctionTypes" HandleSaveOperationEvent="SaveSanctionEvent" />
+
 @code {
     ContextMenu? contextMenu;
 
@@ -150,6 +156,7 @@ HandleAddVacationClicked="AddVacationClicked" />
     {
         allStates.Action -= StateHasChanged;
     }
+
     private async Task HandleSaveEmployeeClickedEventoyee(Employee employee)
     {
         bool successCheck = false;
@@ -169,18 +176,22 @@ HandleAddVacationClicked="AddVacationClicked" />
             addOrUpdateEmployee!.ClearContent();
         }
     }
+
     private void HandleGeneralDepartmentSelectedEvent(int id)
     {
         SelectedDepartments = DefaultDepartments.Where(p => p.Id == id).ToList();
     }
+
     private void HandleDepartmentSelectedEvent(int id)
     {
         SelectedBranches = DefaultBranches.Where(p => p.DepartmentId == id).ToList();
     }
+
     private void HandleCountrySelectedEvent(int id)
     {
         SelectedCities = DefaultCities.Where(p => p.CountryId == id).ToList();
     }
+
     private void HandleCitySelectedEvent(int id)
     {
         SelectedTowns = DefaultTowns.Where(p => p.Id == id).ToList();
@@ -201,6 +212,7 @@ HandleAddVacationClicked="AddVacationClicked" />
     }
 
     public Employee SelectedEmployee { get; set; } = new();
+
     public void ShowMenuPopUp(Employee employee)
     {
         SelectedEmployee = employee;
@@ -274,22 +286,99 @@ HandleAddVacationClicked="AddVacationClicked" />
         ShowMainPage= true;
     }
 
+    DoctorDialog? doctorDialog;
+    public Doctor Doctor { get; set; } = new();
     private void AddHealthClicked()
     {
-        throw new NotImplementedException();
+        Doctor.EmployeeId = SelectedEmployee.Id;
+        contextMenu!.CloseContextMenu();
+        doctorDialog?.OpenDialog();
     }
 
+    OvertimeDialog? overtimeDialog;
+    public Overtime Overtime { get; set; } = new();
+    List<OvertimeType> OvertimeTypes = [];
     private void AddOvertimeClicked()
     {
-        throw new NotImplementedException();
+        Overtime.EmployeeId = SelectedEmployee.Id;
+        contextMenu!.CloseContextMenu();
+        overtimeDialog?.OpenDialog();
     }
 
+    SanctionDialog? sanctionDialog;
+    public Sanction Sanction { get; set; } = new();
+    List<SanctionType> Sanctionypes = [];
     private void AddSanctionClicked()
+    {
+        Sanction.EmployeeId = SelectedEmployee.Id;
+        contextMenu!.CloseContextMenu();
+        sanctionDialog?.OpenDialog();
+    }
+
+    VacationDialog? vacationDialog;
+    public Vacation Vacation { get; set; } = new();
+    List<VacationType> VacationTypes = [];
+    private void AddVacationClicked()
+    {
+        Vacation.EmployeeId = SelectedEmployee.Id;
+        contextMenu!.CloseContextMenu();
+        vacationDialog?.OpenDialog();
+    }
+
+    private async Task SaveHealthEvent(Doctor doctor)
+    {
+        doctor.EmployeeId = SelectedEmployee.Id;
+        var (flag, message) = await doctorService.Insert(doctor, Constants.DoctorBaseUrl);
+        var response = await DisplayMessage(flag, message);
+        if (response)
+        {
+            SelectedEmployee = new();
+            Doctor = new();
+            doctorDialog!.CloseOpenDialog();
+        }
+    }
+
+    // VacationDialog? vacationDialog;
+    // public Vacation Vacation { get; set; } = new();
+    // List<VacationTypes> VacationTypes = [];
+    // private async Task SaveVacationEvent(Vacation vacation)
+    // {
+    //     sanction.EmployeeId = SelectedEmployee.Id;
+    //     var (flag, message) = await sanctionService.Insert(vacation, Constants.SanctionBaseUrl);
+    //     var response = await DisplayMessage(flag, message);
+    //     if (response)
+    //     {
+    //         SelectedEmployee = new();
+    //         Sanction = new();
+    //         sanctionrDialog!.CloseOpenDialog();
+    //     }
+    // }
+
+    // SanctionDialog? sanctionDialog;
+    // public Sanction Sanction { get; set; } = new();
+    // List<SanctionType> SanctionTypes = [];
+    // private async Task SanctionTypes(Sanction sanction)
+    // {
+    //     sanction.EmployeeId = SelectedEmployee.Id;
+    //     var (flag, message) = await sanctionService.Insert(vacation, Constants.SanctionBaseUrl);
+    //     var response = await DisplayMessage(flag, message);
+    //     if (response)
+    //     {
+    //         SelectedEmployee = new();
+    //         Sanction = new();
+    //         sanctionrDialog!.CloseOpenDialog();
+    //     }
+    // }
+    private void SaveOvertimeEvent(Overtime args)
     {
         throw new NotImplementedException();
     }
 
-    private void AddVacationClicked()
+    private void SaveSanctionEvent(Overtime args)
+    {
+        throw new NotImplementedException();
+    }
+    private void SaveVacationEvent(Overtime args)
     {
         throw new NotImplementedException();
     }

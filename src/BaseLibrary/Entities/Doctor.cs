@@ -22,12 +22,12 @@ namespace BaseLibrary.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Relationships : one-to-many
-        //[JsonIgnore]
-        //public virtual List<Employee> Employees { get; set; } = [];
-        //public int EmployeeId { get; set; }
+        [JsonIgnore]
+        public virtual List<Employee> Employees { get; set; } = [];
+        public int EmployeeId { get; set; }
         //[JsonIgnore]
         //public virtual ICollection<Employee>? Employee { get; set; } = [];
-        [JsonIgnore]
-        public virtual ICollection<EmployeeDoctor>? EmployeeDoctors { get; set; } = [];
+        //[JsonIgnore]
+        //public virtual ICollection<EmployeeDoctor>? EmployeeDoctors { get; set; } = [];
     }
 }
